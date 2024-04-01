@@ -8,7 +8,9 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -51,36 +53,38 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void invalidInput() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Invalid Input'),
-          content: const Text('Please enter a valid input'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Okay'),
-            )
-          ],
-        );
-      },
-    );
-  }
-
   void _submitNewExpense() {
     final amountIsInvalid = double.tryParse(_amountController.text) == null ||
         double.parse(_amountController.text) <= 0;
     if (_titleController.text.trim().isEmpty ||
         amountIsInvalid ||
         _selectedDate == null) {
-      invalidInput();
-
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Invalid Input'),
+            content: const Text('Please enter a valid input'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Okay'),
+              )
+            ],
+          );
+        },
+      );
       return;
     }
+
+    widget.onAddExpense(Expense(
+      title: _titleController.text,
+      amount: double.parse(_amountController.text),
+      date: _selectedDate!,
+      category: _selectedCategory,
+    ));
   }
 
   @override
