@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 var kColorScheme =
-    ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 51, 106, 215));
+    ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 29, 57, 112));
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
