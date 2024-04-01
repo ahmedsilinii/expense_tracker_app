@@ -15,25 +15,17 @@ class ExpensesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = const Center(
-      child: Text('No expenses found. Add some!'),
-    );
-
-    if (expenses.isNotEmpty) {
-      mainContent = ListView.builder(
-        itemCount: expenses.length,
-        itemBuilder: (context, index) => Dismissible(
-          key: ValueKey(expenses[index]),
-          child: ExpenseItem(
-            expense: expenses[index],
-          ),
-          onDismissed: (direction) {
-            onRemoveExpense(expenses[index]);
-          },
+    return ListView.builder(
+      itemCount: expenses.length,
+      itemBuilder: (context, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        child: ExpenseItem(
+          expense: expenses[index],
         ),
-      );
-    }
-
-    return mainContent;
+        onDismissed: (direction) {
+          onRemoveExpense(expenses[index]);
+        },
+      ),
+    );
   }
 }
