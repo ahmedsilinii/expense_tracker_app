@@ -33,6 +33,4 @@ class ExpenseItem extends StatelessWidget {
       ),
     );
   }
-
-  IconData? iconDataFromCategory(Category category) {}
 }
